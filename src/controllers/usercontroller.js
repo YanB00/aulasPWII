@@ -20,7 +20,17 @@ route.post ("/", async (request, response)=>{
         return response.status(400).send({"message": "Tipo de usuário não reconhecido."})
     }
 
-await service.createUser(name,email,password,typeUser)
+await service.createUser(name,email,password,typeUser);
+
+return response.status(201).send({"message":"Usuário cadastrado com sucesso"})
+});
+
+route.put("/:idUser", async (request, response)=> {
+    const {name,email,password, typeUser} = request.body;
+    const {idUser} = request.params;
+
+    await service.updateUser(name,email,password,typeUser);
+    
 });
 
 
