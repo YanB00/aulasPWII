@@ -1,7 +1,7 @@
 import database from '../repository/mysql.js';
 
 async function createUser(name,email,password,typeUser){
-    const sql = "INSERT INTO tbl_usuario(nome,email,senha,tipo_usuario VALUES (?,?,?,?)";
+    const sql = "INSERT INTO tbl_usuario(nome,email,senha,tipo_usuario) VALUES (?,?,?,?)";
 
     const infoUser = [name, email, password, typeUser];
 
@@ -11,7 +11,7 @@ async function createUser(name,email,password,typeUser){
 }
 
 async function updateUser(name,email,password,typeUser, idUser) {
-    const sql = "UPDATE tbl_usuario SET nome = ?, email = ?, password = ?, tipo_usuario= ? WHERE id_usuario = ?";
+    const sql = "UPDATE tbl_usuario SET nome = ?, email = ?, senha = ?, tipo_usuario= ? WHERE id_usuario = ?";
 
     const infoUser = [name,email,password,typeUser, idUser]
 

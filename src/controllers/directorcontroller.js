@@ -9,9 +9,10 @@ route.get("/", async (request, response)=>{
 
 route.post("/", async(request,response)=>{
     const {name_director,nacionality,birthday,sex} = request.body;
-    return response.status(200).send({"message":"Diretor criado com sucesso"})
+
 
 await service.createDirector(name_director,nacionality,birthday,sex)
+return response.status(200).send({"message":"Diretor criado com sucesso"})
 
 });
 
