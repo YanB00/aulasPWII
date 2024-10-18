@@ -20,4 +20,32 @@ async function updateUser(name,email,password,typeUser, idUser) {
     conn.end();
 }
 
-export default {createUser, updateUser};
+async function listUser(){
+    const sql = "SELECT * FROM tbl_usuario WHERE deletado = 0";
+
+    const conn = await database.connectDB();
+    const [rows] = await conn.query(sql);
+    conn.end();
+    return rows;
+}
+
+async function listUserByTipe(tipo){
+    const sql = "SELECT * FROM tbl_usuario WHERE deletado = 0 AND tipo_usuario = ?";
+
+    const conn = await database.connectDB();
+    const [rows] = await conn.query(sql, tipo);
+    conn.end();
+    return rows;
+}
+
+async function deleteUser(idUser){
+const sql = "UPDATE tbl_usuario SET deletado = 1 WHERE id_usuario = ?"
+
+const conn = await database.connectDB();
+await conn.query(sql, idUser);
+conn.end();
+
+}
+
+
+export default {createUser, updateUser, listUser, listUserByTipe, deleteUser};

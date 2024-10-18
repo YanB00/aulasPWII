@@ -4,11 +4,6 @@ import service from "../services/userServices.js"
 
 const route = express.Router();
 
-route.get("/", async (request, response)=>{
-    return response.status(200).send({"message":"Listagem de usuários realizada com sucesso!"})
-
-});
-
 route.post ("/", async (request, response)=>{
     const {name,email,password, typeUser} = request.body;
 
@@ -43,5 +38,31 @@ route.put("/:idUser", async (request, response)=> {
     
 });
 
+route.get("/", async (request, response)=>{
+    const users = await service.listUser();
+
+    if(users.length < 1){
+        return response.status(204).end();
+    }
+    return response.status(200).send({"message":"users"})
+
+});
+
+route.get("/:tipo", async (request, response)=>{
+    const tipo = await service.listUser();
+    const users = await service.listUser(tipo);
+
+    return response.status(200).send({"message":"users"})
+
+});
+
+route.delete("/", async (request, response)=>{
+    const {idUser} = request.params;
+
+    await service.deleteUser(idUser);
+
+    return response.status(200).send({"message" : "Usuário excluido com sucesso"})
+
+});
 
 export default route;
